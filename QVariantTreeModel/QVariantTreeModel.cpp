@@ -11,11 +11,11 @@ QVariantTreeModel::QVariantTreeModel(QObject* parent)
 
 QVariantTreeModel::~QVariantTreeModel() = default;
 
-QVariant QVariantTreeModel::saveVariant() const {
+QVariant QVariantTreeModel::toVariant() const {
     return mRoot->toVariant();
 }
 
-void QVariantTreeModel::loadVariant(QVariant variant) {
+void QVariantTreeModel::fromVariant(QVariant variant) {
     beginResetModel();
     mRoot = std::make_unique<QVariantTreeItem>("", std::move(variant), 0, nullptr);
     endResetModel();

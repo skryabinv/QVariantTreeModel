@@ -10,8 +10,8 @@ class QVariantTreeModel : public QAbstractItemModel {
 public:
     explicit QVariantTreeModel(QObject* parent = nullptr);
     ~QVariantTreeModel() override;
-    void loadVariant(QVariant variant);
-    QVariant saveVariant() const;
+    void fromVariant(QVariant variant);
+    QVariant toVariant() const;
 private:
     std::unique_ptr<QVariantTreeItem> mRoot;
 

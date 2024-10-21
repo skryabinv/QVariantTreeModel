@@ -21,12 +21,12 @@ auto saveJSON(const QVariant& variant, const QString& filename) {
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     QVariantTreeModel model;
-    model.loadVariant(loadJSON("../../in.json"));
+    model.fromVariant(loadJSON("../../in.json"));
     QTreeView treeView;
     treeView.header()->setSectionResizeMode(QHeaderView::ResizeToContents);
     treeView.setModel(&model);
     treeView.show();
     auto ret = a.exec();
-    saveJSON(model.saveVariant(), "../../out.json");
+    saveJSON(model.toVariant(), "../../out.json");
     return ret;
 }
