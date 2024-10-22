@@ -1,11 +1,11 @@
 #include "QVariantTreeItem.h"
 
 QVariantTreeItem::QVariantTreeItem(QVariant key, QVariant value,
-                                 int row,
-                                 QVariantTreeItem* parent)
+                                   int row,
+                                   QVariantTreeItem* parent)
     : mKey{std::move(key)},
-      mRow{row},
-      mParent{parent} {
+    mRow{row},
+    mParent{parent} {
     setValue(std::move(value));
 }
 
@@ -18,12 +18,12 @@ auto QVariantTreeItem::getChild(int index) const -> QVariantTreeItem* {
 
 auto QVariantTreeItem::toVariant() const -> QVariant {
     switch(mType) {
-        case Type::Map:
-            return toMap();
-        case Type::List:
-            return toList();
-        case Type::Value:
-            return mValue;
+    case Type::Map:
+        return toMap();
+    case Type::List:
+        return toList();
+    case Type::Value:
+        return mValue;
     }
     return {};
 }
@@ -52,23 +52,22 @@ bool QVariantTreeItem::tryConvert(QVariant& value) const {
 
 void QVariantTreeItem::addChild(QVariant key, QVariant value) {
     auto child = std::make_unique<QVariantTreeItem>(std::move(key),
-                                                   std::move(value),
-                                                   mChildrens.size(), this);
+                                                    std::move(value),
+                                                    mChildrens.size(), this);
     mChildrens.emplace_back(std::move(child));
 }
 
-void QVariantTreeItem::setValue(QVariant value) {
-    // TODO: remove recursion
+void QVariantTreeItem::setValue(QVariant value) {    
     switch(value.typeId()) {
-        case QMetaType::QVariantMap:
-            fromMap(value.toMap());
-            break;
-        case QMetaType::QVariantList:
-            fromList(value.toList());
-            break;
-        default:
-            mType = Type::Value;
-            mValue = std::move(value);
+    case QMetaType::QVariantMap:
+        fromMap(value.toMap());
+        break;
+    case QMetaType::QVariantList:
+        fromList(value.toList());
+        break;
+    default:
+        mType = Type::Value;
+        mValue = std::move(value);
     }
 }
 
