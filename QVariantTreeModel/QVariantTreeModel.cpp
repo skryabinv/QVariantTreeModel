@@ -53,7 +53,7 @@ int QVariantTreeModel::rowCount(const QModelIndex& parent) const {
     auto parentItem = parent.isValid()
             ? getItemPtr(parent)
             : mRoot.get();
-    return parentItem->childCount();
+    return parentItem != nullptr ? parentItem->childCount() : 0;
 }
 
 int QVariantTreeModel::columnCount(const QModelIndex& parent) const {
